@@ -53,15 +53,32 @@ lb.addEventListener("touchstart", e => x0 = e.touches[0].clientX);
 lb.addEventListener("touchend", e => { const d = e.changedTouches[0].clientX - x0; if (Math.abs(d) > 50) nav(d > 0 ? -1 : 1); });
 $("#abrirTabela").onclick = () => abrir([{ src: "assets/tabela.png", alt: "Tabela de valores do Nego Trancista" }], 0);
 
-/* ===== Galeria ===== */
+/* ===== Galeria (com botão "Quero igual a esse") ===== */
 GALERIA.forEach((f, i) => {
+  const item = document.createElement("div");
+  item.className = "g-item";
+
   const b = document.createElement("button");
   b.className = "item"; b.setAttribute("aria-label", "Ampliar foto " + (i + 1));
+
+  const quero = document.createElement("a");
+  quero.className = "btn btn-wa btn-want";
+  quero.textContent = "Quero igual a esse";
+  quero.target = "_blank"; quero.rel = "noopener";
+  // link público da foto, para o Nego ver exatamente qual modelo foi escolhido
+  const url = new URL(f.src, location.href).href;
+  quero.href = wa(`Olá, Nego! Vi este modelo na galeria do site e quero igual a esse: ${url}`);
+
   const img = new Image();
   img.src = f.src; img.alt = f.alt; img.loading = "lazy"; img.width = 600; img.height = 800;
-  img.onerror = () => { b.innerHTML = '<div class="ph"><b>✦</b>Foto em breve</div>'; };
+  img.onerror = () => {
+    b.innerHTML = '<div class="ph"><b>✦</b>Foto em breve</div>';
+    item.classList.add("sem-foto"); // esconde o botão quando a foto não existe
+  };
   b.appendChild(img); b.onclick = () => abrir(GALERIA, i);
-  $("#grid").appendChild(b);
+
+  item.append(b, quero);
+  $("#grid").appendChild(item);
 });
 
 /* ===== Header, menu, scrollspy, topo ===== */

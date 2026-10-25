@@ -81,6 +81,11 @@ blockquote p{color:var(--txt2)}
 .item:hover img{transform:scale(1.07)}
 .ph{height:100%;display:grid;place-content:center;text-align:center;color:var(--gold);gap:.3rem;font-size:.9rem}
 .ph b{font-size:2rem}
+/* Botão "Quero igual a esse" abaixo de cada foto */
+.g-item{display:flex;flex-direction:column;gap:.5rem}
+.g-item .item{width:100%}
+.btn-want{display:block;width:100%;text-align:center;padding:.6rem .8rem;font-size:.9rem}
+.g-item.sem-foto .btn-want{display:none}
 /* ===== Sobre / passos ===== */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;text-align:center}
 .stats b{display:block;font-variant-numeric:lining-nums;font:700 2.6rem "Playfair Display",serif;color:var(--gold2)}
